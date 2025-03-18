@@ -1,17 +1,38 @@
-#include <cstdio>
-void main()
-{
-	int 	height;
+#include <stdio.h>
 
-	printf("³ôÀÌ¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ");
+// int main()
+// {
+// 	int height;
+
+// 	printf("ë†’ì´ë¥¼ ì…ë ¥í•˜ì„¸ìš” : ");
+// 	scanf("%d", &height);
+// 	for (int i = 1; i <= height; i++)
+// 	{
+// 		for (int j = 0; j<height - i; j++) 
+// 			printf("OOO");
+// 		for (int j = 0; j<i; j++)
+// 			printf("%3d", j * 2 + 1);
+// 		for (int j = i - 2; j >= 0; j--)
+// 			printf("%3d", j * 2 + 1);
+// 		printf("\n");
+// 	}
+// }
+
+
+int main()
+{
+	int height;
+
+	printf("ë†’ì´ë¥¼ ì…ë ¥í•˜ì„¸ìš” : ");
 	scanf("%d", &height);
-	for (int i = 1; i <= height; i++) {
-		for (int j = 0; j<height - i; j++)
-			printf("   ");			// °ø¹é Ãâ·Â
-		for (int j = 0; j<i; j++)
-			printf("%3d", j * 2 + 1);	// Áõ°¡ÇÏ´Â ¼ıÀÚ Ãâ·Â
-		for (int j = i - 2; j >= 0; j--)
-			printf("%3d", j * 2 + 1);	// °¨¼ÒÇÏ´Â ¼ıÀÚ Ãâ·Â
-		printf("\n");				// ´ÙÀ½ ÁÙ·Î ÀÌµ¿
+	for (int i = 1; i <= height; i++)
+	{
+		for (int j = 1; j<=height - i; j++) 
+			printf("OOO");
+		for (int j = 1; j<=i; j++)
+			printf("%3d", j * 2 - 1);
+		for (int j = i - 1; j >= 1; j--)
+			printf("%3d", j * 2 - 1);
+		printf("\n");
 	}
 }
