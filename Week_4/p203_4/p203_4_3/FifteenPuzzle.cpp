@@ -178,7 +178,6 @@ int playFifteenPuzzle() {
     printf("새 게임(N) 또는 저장된 게임 불러오기(L)? ");
     scanf(" %c", &choice);
 
-    bool loaded = false;
     if (choice == 'L' || choice == 'l') {
         char filename[MAX_FILENAME];
         printf("불러올 파일 이름을 입력하세요 (확장자 제외): ");
@@ -190,7 +189,6 @@ int playFifteenPuzzle() {
             init();
         } else {
             printf("%s에서 게임을 성공적으로 불러왔습니다.\n", filename);
-            loaded = true;
         }
     } else {
         init();
@@ -200,17 +198,12 @@ int playFifteenPuzzle() {
     printRanking();
     printf("\n 아무 키나 눌러 시작하세요...");
     getche();
+    shuffle(100);
+    printf("\n 퍼즐을 시작합니다...");
+    getche();
 
-    if (!loaded) { // Only shuffle for new games
-        shuffle(100);
-        printf("\n 퍼즐을 시작합니다...");
-        getche();
-        nMove = 0;
-        gettimeofday(&tStart, NULL);
-    } else {
-        printf("\n 저장된 게임을 이어서 시작합니다...");
-        getche();
-    }
+    nMove = 0;
+    gettimeofday(&tStart, NULL);
 
     while (!isDone()) {
         int key = getDirKey();

@@ -8,7 +8,6 @@
 #include <time.h>
 
 #define DIM 4
-#define MAX_FILENAME 100
 
 enum Direction { Left = 68, Right = 67, Up = 65, Down = 66 }; // ←, →, ↑, ↓
 static int DirKey[4] = { Left, Right, Up, Down };
@@ -16,6 +15,14 @@ static int map[DIM][DIM];
 static int x, y;
 static int nMove;
 static struct timeval tStart;
+
+// ASCII representations for tiles
+static const char tileSymbols[DIM * DIM] = {
+    'A', 'B', 'C', 'D',
+    'E', 'F', 'G', 'H',
+    'I', 'J', 'K', 'L',
+    'M', 'N', 'O', ' '  // Last one is empty tile (space)
+};
 
 // getch() & getche()
 static int getch() {
@@ -65,10 +72,10 @@ static void display() {
     printf("--------------\n\t");
     for (int r = 0; r < DIM; r++) {
         for (int c = 0; c < DIM; c++) {
-            if (map[r][c] > 0)
-                printf("%3d", map[r][c]);
+            if (map[r][c] == 0)
+                printf("%c  ", tileSymbols[DIM * DIM - 1]);  // Empty tile
             else
-                printf("   ");
+                printf("%c  ", tileSymbols[map[r][c] - 1]);
         }
         printf("\n\t");
     }
@@ -77,8 +84,7 @@ static void display() {
     struct timeval now;
     gettimeofday(&now, NULL);
     double sec = elapsedTimeSec(tStart, now);
-    printf("\n\t이동 횟수:%6d\n\t경과 시간:%6.1f 초\n", nMove, sec);
-    printf("\t'S'를 눌러 게임을 저장하고 종료합니다.\n\n");
+    printf("\n\t이동 횟수:%6d\n\t경과 시간:%6.1f 초\n\n", nMove, sec);
 }
 
 static bool move(int dir) {
@@ -127,98 +133,26 @@ static bool isDone() {
 }
 
 static int getDirKey() {
-    int ch = getch();
-    if (ch == 27 && getch() == 91) // Arrow key sequence
+    if (getch() == 27 && getch() == 91)
         return getch();
-    return ch; // Return regular character (like 'S' for save)
-}
-
-static void saveGame() {
-    char filename[MAX_FILENAME];
-    printf("저장할 파일 이름을 입력하세요 (확장자 제외): ");
-    scanf("%99s", filename);
-    strcat(filename, ".dat"); // Add .dat extension
-
-    FILE *fp = fopen(filename, "wb");
-    if (!fp) {
-        printf("게임 저장에 실패했습니다.\n");
-        return;
-    }
-
-    // Save game state
-    fwrite(map, sizeof(int), DIM * DIM, fp);
-    fwrite(&x, sizeof(int), 1, fp);
-    fwrite(&y, sizeof(int), 1, fp);
-    fwrite(&nMove, sizeof(int), 1, fp);
-    fwrite(&tStart, sizeof(struct timeval), 1, fp);
-
-    fclose(fp);
-    printf("게임이 %s에 저장되었습니다. 프로그램을 종료합니다.\n", filename);
-}
-
-static bool loadGame(char *filename) {
-    FILE *fp = fopen(filename, "rb");
-    if (!fp) {
-        return false;
-    }
-
-    // Load game state
-    fread(map, sizeof(int), DIM * DIM, fp);
-    fread(&x, sizeof(int), 1, fp);
-    fread(&y, sizeof(int), 1, fp);
-    fread(&nMove, sizeof(int), 1, fp);
-    fread(&tStart, sizeof(struct timeval), 1, fp);
-
-    fclose(fp);
-    return true;
+    return 0;
 }
 
 int playFifteenPuzzle() {
-    char choice;
-    printf("새 게임(N) 또는 저장된 게임 불러오기(L)? ");
-    scanf(" %c", &choice);
-
-    bool loaded = false;
-    if (choice == 'L' || choice == 'l') {
-        char filename[MAX_FILENAME];
-        printf("불러올 파일 이름을 입력하세요 (확장자 제외): ");
-        scanf("%99s", filename);
-        strcat(filename, ".dat"); // Add .dat extension
-        
-        if (!loadGame(filename)) {
-            printf("파일 %s을(를) 불러오지 못했습니다. 새 게임을 시작합니다.\n", filename);
-            init();
-        } else {
-            printf("%s에서 게임을 성공적으로 불러왔습니다.\n", filename);
-            loaded = true;
-        }
-    } else {
-        init();
-    }
-
+    init();
     display();
     printRanking();
     printf("\n 아무 키나 눌러 시작하세요...");
     getche();
+    shuffle(100);
+    printf("\n 퍼즐을 시작합니다...");
+    getche();
 
-    if (!loaded) { // Only shuffle for new games
-        shuffle(100);
-        printf("\n 퍼즐을 시작합니다...");
-        getche();
-        nMove = 0;
-        gettimeofday(&tStart, NULL);
-    } else {
-        printf("\n 저장된 게임을 이어서 시작합니다...");
-        getche();
-    }
+    nMove = 0;
+    gettimeofday(&tStart, NULL);
 
     while (!isDone()) {
-        int key = getDirKey();
-        if (key == 'S' || key == 's') {
-            saveGame();
-            return 0; // Exit without adding to ranking
-        }
-        move(key);
+        move(getDirKey());
         display();
     }
 
