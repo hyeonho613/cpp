@@ -3,7 +3,7 @@
 #include <ctime>
 
 // 무작위로 0과 1을 채우는 함수
-void randomMap(int map[5][5]) 
+void randomMap3(int map[5][5]) 
 {
     std::srand(std::time(0));  // 현재 시간을 시드로 사용
     for (int i = 0; i < 5; ++i)
@@ -12,7 +12,7 @@ void randomMap(int map[5][5])
 }
 
 // 2차원 배열을 출력하는 함수
-void printMap(int map[5][5]) 
+void printMap3(int map[5][5]) 
 {
     std::cout << "[5 x 5 행렬]\n";
     for (int i = 0; i < 5; ++i) 
@@ -24,7 +24,7 @@ void printMap(int map[5][5])
 }
 
 // 가로, 세로, 대각선이 모두 0 또는 모두 1인지 검사하는 함수
-void checkMap(int map[5][5]) 
+void checkMap3(int map[5][5]) 
 {
     // 가로줄 검사
     for (int i = 0; i < 5; ++i) 
@@ -85,10 +85,10 @@ void checkMap(int map[5][5])
 int main() {
     int map[5][5];
 
-    randomMap(map);      // 무작위로 맵 생성
-    printMap(map);       // 맵 출력
+    randomMap3(map);      // 무작위로 맵 생성
+    printMap3(map);       // 맵 출력
     std::cout << "\n[검사 결과]\n";
-    checkMap(map);       // 검사 실행
+    checkMap3(map);       // 검사 실행
 
     return 0;
 }

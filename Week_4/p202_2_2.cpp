@@ -2,14 +2,14 @@
 #include <cstdlib>
 #include <ctime>
 
-void randomMap(int map[5][5]) {
+void randomMap2(int map[5][5]) {
     std::srand(std::time(0));
     for (int i = 0; i < 5; ++i)
         for (int j = 0; j < 5; ++j)
             map[i][j] = std::rand() % 2;
 }
 
-void printMap(int map[5][5]) {
+void printMap2(int map[5][5]) {
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j)
             std::cout << map[i][j] << " ";
@@ -19,7 +19,7 @@ void printMap(int map[5][5]) {
 
 int main() {
     int map[5][5];
-    randomMap(map);
-    printMap(map);
+    randomMap2(map);
+    printMap2(map);
     return 0;
 }
