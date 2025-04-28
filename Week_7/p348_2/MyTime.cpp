@@ -1,6 +1,10 @@
 #include "MyTime.h"
 #include <iomanip>
 
+MyTime::MyTime(double duration) {
+    convert(duration);
+}
+
 void MyTime::convert(double duration) {
     int totalMs = static_cast<int>(duration * 1000);
     milliseconds = totalMs % 1000;

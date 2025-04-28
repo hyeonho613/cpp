@@ -13,6 +13,7 @@ private:
 public:
     MyTime() : hours(0), minutes(0), seconds(0), milliseconds(0) {}
     MyTime(int h, int m, int s, int ms) : hours(h), minutes(m), seconds(s), milliseconds(ms) {}
+    MyTime(double duration);
 
     void convert(double duration);
     void print();
