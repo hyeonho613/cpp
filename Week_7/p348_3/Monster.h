@@ -29,10 +29,9 @@ class Monster {
 public:
     Monster(std::string n = "몬스터", std::string i = "*", int px = 0, int py = 0)
         : name(n), icon(i), x(px), y(py), nItem(0), nEnergy(100) {
-        // 생성 시 좌표 검증
-        clip(DIM, DIM);
+        clip(DIM, DIM); // 생성 시 좌표 검증
     }
-    ~Monster() { std::cout << "\t" << name << icon << " 소멸되었습니다~~~\n"; }
+    ~Monster() { } // 출력문 제거
 
     void draw(Canvas &canvas) { canvas.draw(x, y, icon); }
     void move(int map[DIM][DIM], int maxx, int maxy) {

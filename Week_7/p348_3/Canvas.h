@@ -13,8 +13,16 @@ public:
             line[y] = std::string(xMax * 2, ' ');
     }
     void draw(int x, int y, std::string val) {
-        if (x >= 0 && y >= 0 && x < xMax && y < yMax)
-            line[y].replace(x * 2, 2, val);
+        if (x >= 0 && y >= 0 && x < xMax && y < yMax) {
+            // val 길이가 2인지 확인
+            if (val.size() != 2) {
+                val = val.size() > 2 ? val.substr(0, 2) : val + " ";
+            }
+            size_t pos = x * 2;
+            if (pos + 2 <= line[y].size()) {
+                line[y].replace(pos, 2, val);
+            }
+        }
     }
     void clear(std::string val = ". ") { // 디폴트 인수: 점 2개
         for (int y = 0; y < yMax; y++)
@@ -22,7 +30,7 @@ public:
                 draw(x, y, val);
     }
     void print(const char *title = "<My Canvas>") {
-        system("cls");
+        system("clear"); // Linux 환경
         std::cout << title << std::endl;
         for (int y = 0; y < yMax; y++)
             std::cout << line[y] << std::endl;

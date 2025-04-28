@@ -1,7 +1,7 @@
 #pragma once
 #include "Canvas.h"
 #include "Monster.h"
-#include <unistd.h> // Linux에서 usleep() 사용
+#include <unistd.h>
 #include <iostream>
 #define DIM 40
 #define MAXMONS 5
@@ -22,10 +22,10 @@ class MonsterWorld {
         return nItems;
     }
     void print() {
-        canvas.clear();
+        canvas.clear(". "); // 캔버스 점으로 초기화
         for (int y = 0; y < yMax; y++)
             for (int x = 0; x < xMax; x++)
-                if (Map(x, y) > 0) canvas.draw(x, y, "○");
+                if (Map(x, y) > 0) canvas.draw(x, y, "O"); // 아이템만 O
         for (int i = 0; i < nMon; i++)
             mon[i].draw(canvas);
         canvas.print("[ Monster World (몬스터의 세계) ]");
@@ -56,7 +56,7 @@ public:
             nMove++;
             print();
             if (isDone()) break;
-            usleep(wait * 1000); // 밀리초를 마이크로초로 변환
+            usleep(wait * 1000);
         }
     }
 };
