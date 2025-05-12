@@ -4,8 +4,9 @@
 using namespace std;
 
 class Matrix {
-	int rows, cols;		// 행과 열의 크기
-	int** mat;		// 실제 행렬 데이터
+private:
+	int rows, cols;
+	int** mat;
 public:
 	Matrix(int r = 0, int c = 0) : rows(r), cols(c), mat(NULL) {
 		mat = new int*[rows];
@@ -23,7 +24,7 @@ public:
 	int Rows() { return rows; }
 	int Cols() { return cols; }
 	int** Data() { return mat; };
-	void print(char *str = "Mat") {
+	void print(const char* str = "Mat") {
 		cout << str << " " << rows << "x" << cols << endl;
 		for (int i = 0; i<rows; i++) {
 			for (int j = 0; j<cols; j++)

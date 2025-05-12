@@ -1,36 +1,43 @@
 #include <iostream>
-#include <cstring>
+#include <string.h>
 
 class Sample {
-    char* name;
+    char *name;
     static int count;
-
 public:
-    Sample() { count++; }
-    Sample(const char* name) { 
+    Sample() { 
+        name = nullptr;
+        count++; 
+    }
+    Sample(const char * name) { 
         this->name = new char[strlen(name) + 1];
         strcpy(this->name, name);
-        count++;
+        count++; 
     }
     Sample(const Sample& other) { 
-        this->name = new char[strlen(other.name) + 1];
-        strcpy(this->name, other.name);
+        name = new char[strlen(other.name) + 1];
+        strcpy(name, other.name);
         count++;
     }
     ~Sample() { 
         delete[] name;
-        count--; 
     }
-
-    static void printCount() { 
-        std::cout << "Number of Sample objects: " << count << std::endl;
+    static void printCount() {
+        std::cout << "Sample 객체의 개수: " << count << std::endl;
     }
 };
-
 int Sample::count = 0;
 
 int main() {
-    Sample a("sample");
-    Sample b(a);
+    std::cout << "객체 추가 없음 -> ";
     Sample::printCount();
+
+    Sample a("sample");
+    std::cout << "객체 a 추가 -> ";
+    Sample::printCount();
+
+    Sample b(a);
+    std::cout << "객체 b 추가 -> ";
+    Sample::printCount();
+    return 0;
 }

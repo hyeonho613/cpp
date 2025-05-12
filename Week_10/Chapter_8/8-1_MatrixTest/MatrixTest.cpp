@@ -6,7 +6,7 @@ int findMaxPixel(int** a, int rows, int cols) {
 			if (max < a[i][j]) max = a[i][j];
 	return max;
 }
-void main()
+int main()
 {
 	Matrix u(3, 6);
 	u.setRand();
