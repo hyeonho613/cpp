@@ -1,6 +1,6 @@
 #pragma once
 #include "Canvas.h"
-#include "Monster.h"
+#include "VariousMonsters.h"
 #include "Matrix.h"
 #include <windows.h>
 #define MAXMONS 8
@@ -24,13 +24,13 @@ class MonsterWorld {
 		canvas.clear();
 		for (int y = 0; y < yMax; y++)
 			for (int x = 0; x < xMax; x++)
-                if (Map(x, y) > 0) canvas.draw(x, y, "O");
+				if (Map(x, y) > 0) canvas.draw(x, y, "¡á");
 		for (int i = 0; i < nMon; i++)
 			pMon[i]->draw(canvas);
-        canvas.print("[ Monster World (ì›€ì§ì´ëŠ” ëª¬ìŠ¤í„°) ]");
+		canvas.print("[ Monster World (¼¼»óÀÇ ¸ğµç ±Í½Å) ]");
 
-        cerr << " ì „ì²´ ì´ë™ íšŸìˆ˜ = " << nMove << endl;
-        cerr << " ë‚¨ì€ ì•„ì´í…œ ìˆ˜ = " << countItems() << endl;
+		cerr << " ÀüÃ¼ ÀÌµ¿ È½¼ö = " << nMove << endl;
+		cerr << " ³²Àº ¾ÆÀÌÅÛ ¼ö = " << countItems() << endl;
 		for (int i = 0; i < nMon; i++)
 			pMon[i]->print();
 	}
@@ -51,11 +51,17 @@ public:
 	}
 	void play(int maxwalk, int wait) {
 		print();
-        cerr << " ì‹œì‘í•˜ë ¤ë©´ ì—”í„°í‚¤ ì…ë ¥í•˜ì„¸ìš”...";
+		cerr << " ¿£ÅÍ¸¦ ´©¸£¼¼¿ä...";
 		getchar();
 		for (int i = 0; i < maxwalk; i++) {
-			for (int k = 0; k < nMon; k++)
-				pMon[k]->move(world.Data(), xMax, yMax);
+			//for (int k = 0; k < nMon; k++)
+			//	pMon[k]->move(world.Data(), xMax, yMax);
+			((Zombie*)pMon[0])->move(world.Data(), xMax, yMax);
+			((Vampire*)pMon[1])->move(world.Data(), xMax, yMax);
+			((KGhost*)pMon[2])->move(world.Data(), xMax, yMax);
+			((Jiangshi*)pMon[3])->move(world.Data(), xMax, yMax);
+			((Jiangshi*)pMon[4])->move(world.Data(), xMax, yMax);
+
 			nMove++;
 			print();
 			if (isDone()) break;

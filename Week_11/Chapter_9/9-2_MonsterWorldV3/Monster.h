@@ -3,8 +3,9 @@
 #define DIM 40
 
 class Monster {
-	string name, icon;
-	int x, y, nItem;
+protected:
+	string name, icon;	// ¸ó½ºÅÍ ÀÌ¸§°ú È­¸é Ãâ·Â¿ë ¾ÆÀÌÄÜ
+	int x, y, nItem;		// ÇöÀç À§Ä¡¿Í ¸ÔÀº ¾ÆÀÌÅÛ ¼ö
 
 	void clip(int maxx, int maxy) {
 		if (x < 0) x = 0;
@@ -19,11 +20,9 @@ class Monster {
 		}
 	}
 public:
-	Monster(string n = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", string i = "ï¿½ï¿½", int px = 0, int py = 0)
+	Monster(string n = "³ª±«¹°", string i = "¡Ø", int px = 0, int py = 0)
 		: name(n), icon(i), x(px), y(py), nItem(0) {}
-	~Monster() {
-		cout << "\t" << name << icon << " ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½~~~\n";
-	}
+	~Monster() { cout << "\t" << name << icon << " ¹°·¯°©´Ï´Ù~~~\n"; }
 
 	void draw(Canvas &canvas) { canvas.draw(x, y, icon); }
 	void move(int** map, int maxx, int maxy) {
