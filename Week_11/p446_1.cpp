@@ -2,8 +2,8 @@
 
 class Point
 {
-    // protected: 
-    private:
+    protected: 
+    // private:
         int x, y; // 10줄에 의해 x, y를 초기화
 
     public:
@@ -37,7 +37,7 @@ class Rectangle : public Point
 int main()
 {
     Point point(2, 3);
-    Rectangle rectangle(2, 3, 100, 200);
+    Rectangle rectangle(4, 5, 100, 200);
 
     std::cout << "\nPoint 클래스의 draw() 함수 실행 결과 :" << std::endl;
     point.draw();
