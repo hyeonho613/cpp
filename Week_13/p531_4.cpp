@@ -22,7 +22,7 @@ public:
         return list[index];
     }
 
-    // 함수 호출 연산자 오버로드 (단일 인덱스)
+    // 함수 호출 연산자 오버로드 (단일 인덱스)=
     int& operator()(int index) 
     {
         return list[index];
@@ -56,6 +56,7 @@ public:
 int main() {
     // rand() 시드 설정
     std::srand(static_cast<unsigned>(std::time(nullptr)));
+    
 
     SampleList sample;
 
