@@ -63,7 +63,7 @@ int main()
     game.add(new Tuman("LeftPlayer", "L ", rand() % w, rand() % h));
     game.add(new Tuman("RightPlayer", "R ", rand() % w, rand() % h));
 
-    game.play(50, 100);
+    game.play(500, 100);
     printf("------Game Over-------------------\n");
 
     Tuman* human = dynamic_cast<Tuman*>(game.getMonster(game.getNMon() - 1));
